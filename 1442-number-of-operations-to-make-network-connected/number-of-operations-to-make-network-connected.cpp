@@ -34,7 +34,7 @@ public:
         }
 
         parent.resize(n);
-        rank_.resize(n);
+        rank_.resize(n, 0);
 
         for (int i = 0; i < n; i++) {
             parent[i] = i;
