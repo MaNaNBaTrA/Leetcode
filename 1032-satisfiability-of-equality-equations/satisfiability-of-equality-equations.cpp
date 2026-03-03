@@ -2,6 +2,7 @@ class Solution {
 public:
     map<char, char> parent;
     map<char, int> rank_;
+    
     char find(char x) {
         if (parent[x] != x) {
             parent[x] = find(parent[x]);  
