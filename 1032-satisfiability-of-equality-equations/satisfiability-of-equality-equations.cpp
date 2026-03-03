@@ -1,18 +1,18 @@
 class Solution {
 public:
-    map<char, char> parent;
-    map<char, int> rank_;
-    
-    char find(char x) {
+    vector<int> parent;
+    vector<int> rank_;
+
+    int find(int x) {
         if (parent[x] != x) {
-            parent[x] = find(parent[x]);  
+            parent[x] = find(parent[x]);   
         }
         return parent[x];
     }
 
-    void Union(char x, char y) {
-        char px = find(x);
-        char py = find(y);
+    void Union(int x, int y) {
+        int px = find(x);
+        int py = find(y);
 
         if (px == py) return;
 
@@ -29,22 +29,27 @@ public:
     }
 
     bool equationsPossible(vector<string>& equations) {
-        for (auto &eq : equations) {
-            parent[eq[0]] = eq[0];
-            parent[eq[3]] = eq[3];
-            rank_[eq[0]] = 0;
-            rank_[eq[3]] = 0;
+
+        parent.resize(26);
+        rank_.resize(26, 0);
+
+        for (int i = 0; i < 26; i++) {
+            parent[i] = i;
         }
 
         for (auto &eq : equations) {
             if (eq[1] == '=') {
-                Union(eq[0], eq[3]);
+                int x = eq[0] - 'a';
+                int y = eq[3] - 'a';
+                Union(x, y);
             }
         }
 
         for (auto &eq : equations) {
             if (eq[1] == '!') {
-                if (find(eq[0]) == find(eq[3])) {
+                int x = eq[0] - 'a';
+                int y = eq[3] - 'a';
+                if (find(x) == find(y)) {
                     return false;
                 }
             }
