@@ -40,8 +40,6 @@ public:
             parent[i] = i;
         }
         
-        int cables = connections.size();
-
         for(auto& it : connections){
             Union(it[0],it[1]);
         }
